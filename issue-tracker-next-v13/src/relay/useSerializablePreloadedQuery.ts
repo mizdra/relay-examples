@@ -3,9 +3,10 @@
 
 import { useMemo } from "react";
 import { PreloadedQuery, PreloadFetchPolicy } from "react-relay";
-import { ConcreteRequest, IEnvironment, OperationType } from "relay-runtime";
+import { ConcreteRequest, OperationType } from "relay-runtime";
 import { responseCache } from "./environment";
 import { SerializablePreloadedQuery } from "./loadSerializableQuery";
+import { getCurrentEnvironment } from "src/relay/environment";
 
 // This hook convert serializable preloaded query
 // into Relay's PreloadedQuery object.
@@ -17,10 +18,10 @@ export default function useSerializablePreloadedQuery<
   TRequest extends ConcreteRequest,
   TQuery extends OperationType
 >(
-  environment: IEnvironment,
   preloadQuery: SerializablePreloadedQuery<TRequest, TQuery>,
   fetchPolicy: PreloadFetchPolicy = "store-or-network"
 ): PreloadedQuery<TQuery> {
+  const environment = getCurrentEnvironment();
   useMemo(() => {
     writePreloadedQueryToCache(preloadQuery);
   }, [preloadQuery]);

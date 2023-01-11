@@ -6,7 +6,6 @@ import { SerializablePreloadedQuery } from "src/relay/loadSerializableQuery";
 import MainViewQueryNode, {
   MainViewQuery,
 } from "__generated__/MainViewQuery.graphql";
-import { getCurrentEnvironment } from "src/relay/environment";
 import useSerializablePreloadedQuery from "src/relay/useSerializablePreloadedQuery";
 
 const MainViewClientComponent = (props: {
@@ -15,11 +14,7 @@ const MainViewClientComponent = (props: {
     MainViewQuery
   >;
 }) => {
-  const environment = getCurrentEnvironment();
-  const queryRef = useSerializablePreloadedQuery(
-    environment,
-    props.preloadedQuery
-  );
+  const queryRef = useSerializablePreloadedQuery(props.preloadedQuery);
 
   return (
     <Suspense fallback="Loading...">
