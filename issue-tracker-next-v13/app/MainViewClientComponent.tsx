@@ -7,7 +7,6 @@ import MainViewQueryNode, {
   MainViewQuery,
 } from "__generated__/MainViewQuery.graphql";
 import { getCurrentEnvironment } from "src/relay/environment";
-import { RelayEnvironmentProvider } from "react-relay";
 import useSerializablePreloadedQuery from "src/relay/useSerializablePreloadedQuery";
 
 const MainViewClientComponent = (props: {
@@ -23,11 +22,9 @@ const MainViewClientComponent = (props: {
   );
 
   return (
-    <RelayEnvironmentProvider environment={environment}>
-      <Suspense fallback="Loading...">
-        <MainView queryRef={queryRef} />
-      </Suspense>
-    </RelayEnvironmentProvider>
+    <Suspense fallback="Loading...">
+      <MainView queryRef={queryRef} />
+    </Suspense>
   );
 };
 

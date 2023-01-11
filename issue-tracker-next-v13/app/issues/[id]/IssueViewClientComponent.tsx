@@ -1,6 +1,5 @@
 "use client";
 
-import { RelayEnvironmentProvider } from "react-relay";
 import Issue from "src/components/Issue";
 import { Suspense } from "react";
 import IssueQueryNode, { IssueQuery } from "__generated__/IssueQuery.graphql";
@@ -18,11 +17,9 @@ const Root = (props: {
   );
 
   return (
-    <RelayEnvironmentProvider environment={environment}>
-      <Suspense fallback="Loading...">
-        <Issue queryRef={queryRef} />
-      </Suspense>
-    </RelayEnvironmentProvider>
+    <Suspense fallback="Loading...">
+      <Issue queryRef={queryRef} />
+    </Suspense>
   );
 };
 
