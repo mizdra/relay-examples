@@ -4,6 +4,7 @@ import { IssuesFragment$key } from "__generated__/IssuesFragment.graphql";
 import Link from "next/link";
 import { IssuesPaginationQuery } from "__generated__/IssuesPaginationQuery.graphql";
 import styles from "styles/Issues.module.css";
+import { useRouter } from "next/navigation";
 
 export default function Issues(props: {
   repository: IssuesFragment$key | null;
@@ -50,6 +51,8 @@ export default function Issues(props: {
     loadNext(10);
   }, [isLoadingNext, loadNext]);
 
+  const { prefetch } = useRouter();
+
   return (
     <ul className={styles.issues}>
       {data?.issues.edges?.map((edge) => {
@@ -59,7 +62,10 @@ export default function Issues(props: {
         return (
           <li key={edge.__id}>
             <Link href={`/issues/${edge.node.number}`}>{edge.node.title}</Link>{" "}
-            by {edge.node.author?.login}
+            by {edge.node.author?.login}{" "}
+            <button onClick={() => prefetch(`/issues/${edge.node?.number}`)}>
+              Prefetch
+            </button>
           </li>
         );
       })}
