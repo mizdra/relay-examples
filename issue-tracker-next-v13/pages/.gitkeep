@@ -1,0 +1,2 @@
+Without the pages directory, the `swc` relay plugin used inside the `next build` throws an error.
+As a workaround, we create an empty pages directory.
